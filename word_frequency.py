@@ -1,3 +1,4 @@
+import re
 STOP_WORDS = [
     'a', 'an', 'and', 'are', 'as', 'at', 'be', 'by', 'for', 'from', 'has', 'he',
     'i', 'in', 'is', 'it', 'its', 'of', 'on', 'that', 'the', 'to', 'were',
@@ -25,8 +26,16 @@ def remove_punctuation(s):
 def remove_stop_words(s):
     for word in STOP_WORDS:
         if word in s:
-            s.replace(word, "")
+            s = s.replace(f'/b{word}/b', "")
     return s
+
+# def remove_stop_words(s):
+#     list = s.split()
+#     return_list = []
+#     for word in list:
+#         if word not in STOP_WORDS:
+#             return_list.append(word)
+#     return " ".join(return_list)
 
 
 def print_word_freq(file):
@@ -36,7 +45,7 @@ def print_word_freq(file):
         file (string): A file to be read
     """
     file_read = read_file(file)
-    print(file_read)
+    # print(file_read)
     stripped_file = remove_punctuation(file_read).lower()
     cleaned_file = remove_stop_words(stripped_file)
     print(cleaned_file)
