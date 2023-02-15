@@ -3,10 +3,43 @@ STOP_WORDS = [
     'i', 'in', 'is', 'it', 'its', 'of', 'on', 'that', 'the', 'to', 'were',
     'will', 'with'
 ]
+PUNCTUATION = [",", "?", "!", ".", "'", '"']
+
+
+def read_file(file):
+    """Uses open to read a file
+
+    Args:
+        file (file ): A file to be read
+    """
+    with open(file) as opened_file:
+        return opened_file.read()
+
+
+def remove_punctuation(s):
+    for punc in PUNCTUATION:
+        s = s.replace(punc, "")
+    return s
+
+
+def remove_stop_words(s):
+    for word in STOP_WORDS:
+        if word in s:
+            s.replace(word, "")
+    return s
 
 
 def print_word_freq(file):
-    """Read in `file` and print out the frequency of words in that file."""
+    """Performs word frequency operations
+
+    Args:
+        file (string): A file to be read
+    """
+    file_read = read_file(file)
+    print(file_read)
+    stripped_file = remove_punctuation(file_read).lower()
+    cleaned_file = remove_stop_words(stripped_file)
+    print(cleaned_file)
     pass
 
 
