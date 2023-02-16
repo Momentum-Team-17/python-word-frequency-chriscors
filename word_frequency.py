@@ -1,8 +1,8 @@
 import re
 STOP_WORDS = [
-    'a', 'an', 'and', 'are', 'as', 'at', 'be', 'by', 'for', 'from', 'has', 'he',
-    'i', 'in', 'is', 'it', 'its', 'of', 'on', 'that', 'the', 'to', 'were',
-    'will', 'with'
+    'a', 'an', 'and', 'are', 'as', 'at', 'be', 'by', 'for', 'from', 'has',
+    'he', 'i', 'in', 'is', 'it', 'its', 'of', 'on', 'that', 'the', 'to',
+    'were', 'will', 'with'
 ]
 PUNCTUATION = [",", "?", "!", ".", "'", '"']
 
@@ -17,13 +17,13 @@ def read_file(file):
         return opened_file.read()
 
 
-def remove_punctuation(s):
+def remove_punctuation(s: str) -> str:
     for punc in PUNCTUATION:
         s = s.replace(punc, "")
     return s
 
 
-def remove_stop_words(s):
+def remove_stop_words(s: str) -> str:
     for word in STOP_WORDS:
         if word in s:
             s = s.replace(f'/b{word}/b', "")
@@ -38,6 +38,33 @@ def remove_stop_words(s):
 #     return " ".join(return_list)
 
 
+def track_counts(s: str) -> dict:
+    """Unumerates counts of words in string
+
+    Args:
+        s (string): String to be processed
+    """
+    counts = {}
+    for word in s:
+        if not counts.get(word):
+            counts[word] = "*"
+        else:
+            counts[word] += "*"
+    return counts
+
+
+def add_spaces(counts: dict) -> dict:
+    pass
+
+
+def print_counts(counts: dict) -> None:
+    breakpoint
+    for word, count in counts.items():
+        print(f'{word} | {count}')
+
+    pass
+
+
 def print_word_freq(file):
     """Performs word frequency operations
 
@@ -45,10 +72,20 @@ def print_word_freq(file):
         file (string): A file to be read
     """
     file_read = read_file(file)
-    # print(file_read)
+
     stripped_file = remove_punctuation(file_read).lower()
+
     cleaned_file = remove_stop_words(stripped_file)
-    print(cleaned_file)
+
+    counts = track_counts(cleaned_file.split())
+
+    counts = dict(
+        sorted(counts.items(), key=lambda item: item[1], reverse=True))
+
+    counts = add_spaces(counts)
+
+    counts = print_counts(counts)
+
     pass
 
 
