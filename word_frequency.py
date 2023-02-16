@@ -24,19 +24,21 @@ def remove_punctuation(s: str) -> str:
     return s
 
 
-def remove_stop_words(s: str) -> str:
-    for word in STOP_WORDS:
-        if word in s:
-            s = s.replace(f'/b{word}/b', "")
-    return s
+# def remove_stop_words(s: str) -> str:
+#     for word in STOP_WORDS:
+#         if word in s:
+#             # breakpoint()
+#             s = s.replace(f'/b{word}/', "")
+#     print(s)
+#     return s
 
-# def remove_stop_words(s):
-#     list = s.split()
-#     return_list = []
-#     for word in list:
-#         if word not in STOP_WORDS:
-#             return_list.append(word)
-#     return " ".join(return_list)
+def remove_stop_words(s):
+    list = s.split()
+    return_list = []
+    for word in list:
+        if word not in STOP_WORDS:
+            return_list.append(word)
+    return " ".join(return_list)
 
 
 def track_counts(s: str) -> dict:
