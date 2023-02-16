@@ -1,4 +1,5 @@
-import re
+# import re
+
 STOP_WORDS = [
     'a', 'an', 'and', 'are', 'as', 'at', 'be', 'by', 'for', 'from', 'has',
     'he', 'i', 'in', 'is', 'it', 'its', 'of', 'on', 'that', 'the', 'to',
@@ -39,11 +40,6 @@ def remove_stop_words(s: str) -> str:
 
 
 def track_counts(s: str) -> dict:
-    """Unumerates counts of words in string
-
-    Args:
-        s (string): String to be processed
-    """
     counts = {}
     for word in s:
         if not counts.get(word):
@@ -54,7 +50,18 @@ def track_counts(s: str) -> dict:
 
 
 def add_spaces(counts: dict) -> dict:
-    pass
+
+    num = len(max(counts.keys(), key=len))
+    spacer = ""
+    new_counts = {}
+    print(num, spacer)
+
+    for key in counts.keys():
+        for i in range(num - len(key)):
+            spacer += " "
+        new_counts[spacer+key] = counts[key]
+        spacer = ""
+    return new_counts
 
 
 def print_counts(counts: dict) -> None:
@@ -79,10 +86,10 @@ def print_word_freq(file):
 
     counts = track_counts(cleaned_file.split())
 
+    counts = add_spaces(counts)
+
     counts = dict(
         sorted(counts.items(), key=lambda item: item[1], reverse=True))
-
-    counts = add_spaces(counts)
 
     counts = print_counts(counts)
 
