@@ -59,8 +59,7 @@ def add_spaces(counts: dict) -> dict:
     print(num, spacer)
 
     for key in counts.keys():
-        for i in range(num - len(key)):
-            spacer += " "
+        spacer += ' ' * (num - len(key))
         new_counts[spacer+key] = counts[key]
         spacer = ""
     return new_counts
